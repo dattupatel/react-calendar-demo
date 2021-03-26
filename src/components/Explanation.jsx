@@ -24,7 +24,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		backgroundColor: theme.palette.grey[800],
-		color: 'white'
+		color: 'white',
+		position: 'relative'
+	},
+	titleIcon: {
+		position: 'absolute',
+		right: 10,
+		top: 'calc(50% - 10px)'
 	}
 }));
 
@@ -41,7 +47,7 @@ const Explanation = () => {
 	const open = Boolean(anchorEl);
 
 	const notes = [
-		'React and other packages, except a package that generates a calendar.',
+		'Use React and some other packages, <strong><em>except a package that generates a calendar layout</em></strong>.',
 		'Randomely generate 10 calendar events.',
 		'9 AM to 9 PM.',
 		'Meeting is at least 15 minutes long, with step of 1 minutes.',
@@ -70,6 +76,7 @@ const Explanation = () => {
 				<Card className={classes.card}>
 					<CardContent className={classes.title}>
 						<Typography>Original demo constraints</Typography>
+						<HelpOutlineIcon className={classes.titleIcon} />
 					</CardContent>
 					<CardContent>
 						<List dense={true}>
@@ -78,7 +85,13 @@ const Explanation = () => {
 									<ListItemIcon style={{ minWidth: 0 }}>
 										<ArrowRightIcon />
 									</ListItemIcon>
-									<ListItemText primary={note} />
+									<ListItemText
+										primary={
+											<span
+												dangerouslySetInnerHTML={{ __html: note }}
+											/>
+										}
+									/>
 								</ListItem>
 							))}
 						</List>
