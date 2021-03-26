@@ -7,6 +7,7 @@ import Popover from '@material-ui/core/Popover';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import MoreIcon from '@material-ui/icons/More';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -58,7 +59,11 @@ const Explanation = () => {
 	return (
 		<div className={classes.root}>
 			<IconButton onClick={handleClick}>
-				{open ? <HelpOutlineIcon /> : <HelpIcon />}
+				{open ? (
+					<HelpOutlineIcon fontSize="small" />
+				) : (
+					<HelpIcon fontSize="small" />
+				)}
 			</IconButton>
 			<Popover
 				open={open}
@@ -76,7 +81,7 @@ const Explanation = () => {
 				<Card className={classes.card}>
 					<CardContent className={classes.title}>
 						<Typography>Original demo constraints</Typography>
-						<HelpOutlineIcon className={classes.titleIcon} />
+						<MoreIcon fontSize="small" className={classes.titleIcon} />
 					</CardContent>
 					<CardContent>
 						<List dense={true}>

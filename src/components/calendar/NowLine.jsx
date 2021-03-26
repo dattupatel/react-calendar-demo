@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import red from '@material-ui/core/colors/red';
 
@@ -15,17 +15,37 @@ import {
 const DELAY = 60;
 
 const useStyles = makeStyles((theme) => ({
+	nowLineContainer: {
+		position: 'absolute',
+		zIndex: 10,
+		width: '100%',
+		cursor: 'pointer'
+	},
 	nowLine: {
-		width: 'calc(100% + 20px)',
-		left: -10,
-
-		paddingTop: 1,
-		paddingBottom: 1,
-		background: `linear-gradient(to right top, ${red[900]}, ${purple[700]})`,
+		marginLeft: theme.spacing(1),
+		width: `calc(100% - ${theme.spacing(1)}px )`,
+		background: `linear-gradient(to right top, ${fade(red[900], 0.6)}, ${fade(
+			purple[700],
+			0.6
+		)})`,
 		transition: theme.transitions.create([ 'top', 'visibility', 'background' ]),
 		'&:hover': {
-			cursor: 'pointer',
-			background: `linear-gradient(to right top, ${purple[700]}, ${red[900]})`
+			background: `linear-gradient(to right top, ${purple[700]}, ${red[900]})`,
+			'&:after': {
+				background: fade(red[900], 1)
+			}
+		},
+		'&:after': {
+			content: "' '",
+			display: 'block',
+			height: 0,
+			width: 0,
+			padding: theme.spacing(1),
+			borderRadius: '50%',
+			background: fade(red[900], 0.6),
+			position: 'absolute',
+			left: -theme.spacing(1),
+			top: -theme.spacing(1)
 		}
 	},
 	nowLineShow: {
@@ -62,7 +82,7 @@ const NowLine = ({ height, ...props }) => {
 				const now = nowInHM - dayStartsAt;
 				const minute = (height + 1) / LEAST_MEETING_LENGTH_MINUTES;
 				const top = minute * moment.duration(now).asMinutes();
-				setTop(top - 1);
+				setTop(top);
 			}
 		},
 		[ top, height, nowInHM, dayStartsAt, dayEndsAt ]
@@ -95,14 +115,15 @@ const NowLine = ({ height, ...props }) => {
 
 	return (
 		<Tooltip title="Now" placement="left">
-			<Divider
-				absolute={true}
+			<div
 				className={[
-					classes.nowLine,
+					classes.nowLineContainer,
 					timerHasStarted ? classes.nowLineShow : classes.nowLineHide
 				].join(' ')}
 				style={{ top: top }}
-			/>
+			>
+				<Divider className={classes.nowLine} />
+			</div>
 		</Tooltip>
 	);
 };
