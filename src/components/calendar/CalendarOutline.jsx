@@ -1,4 +1,4 @@
-import React from 'react'; //, { useState, useEffect, useRef }
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,7 @@ import {
 } from '../../constants/constants';
 import CalendarEvents from './CalendarEvents';
 import Times from '../../models/Times';
-// import NowLine from './NowLine';
+import NowLine from './NowLine';
 
 const generateLayoutArray = () => {
 	const hours = END_HOUR - START_HOUR;
@@ -67,22 +67,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CalendarOutline = () => {
-	// const [ height, setHeight ] = useState(0);
-	// const ref = useRef(null);
+	const [ height, setHeight ] = useState(0);
+	const ref = useRef(null);
 
-	// useEffect(
-	// 	() => {
-	// 		setHeight(ref.current.clientHeight);
-	// 	},
-	// 	[ ref ]
-	// );
+	useEffect(
+		() => {
+			if (ref.current) {
+				setHeight(ref.current.clientHeight);
+			}
+		},
+		[ ref ]
+	);
 
 	const events = useSelector((state) => state.events.events);
 	const classes = useStyles();
 	const layoutArray = generateLayoutArray();
 	return (
 		<div className={classes.root}>
-			{/* <NowLine height={height} /> */}
+			<NowLine height={height} />
 			{layoutArray.map((timeData, i) => (
 				<Card
 					elevation={0}
@@ -116,7 +118,7 @@ const CalendarOutline = () => {
 				</Card>
 			))}
 			<Card
-				// ref={ref}
+				ref={ref}
 				elevation={0}
 				className={[
 					classes.timeContainer,
