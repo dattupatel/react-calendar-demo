@@ -1,3 +1,5 @@
+export const MAX_EVENTS_PER_DAY = 10;
+
 //The start/end hours in a 24 hour clock
 export const START_HOUR = 9;
 export const END_HOUR = 21;

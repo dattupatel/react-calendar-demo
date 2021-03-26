@@ -4,12 +4,13 @@ import {
 	START_HOUR,
 	END_HOUR,
 	LEAST_MEETING_LENGTH_MINUTES,
-	LONGEST_MEETING_STEP
+	LONGEST_MEETING_STEP,
+	MAX_EVENTS_PER_DAY
 } from '../constants/constants';
 import Events from '../models/Events';
 
 export const generateMockEvents = () => {
-	const events = new Array(10).fill({}).map(() => {
+	const events = new Array(MAX_EVENTS_PER_DAY).fill({}).map(() => {
 		const e = generateRandomEvent();
 		return new Events(e.id, e.name, e.description, e.start, e.end, e.attendees);
 	});
