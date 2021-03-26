@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; //, { useState, useEffect, useRef }
 import { useSelector } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -12,6 +12,7 @@ import {
 } from '../../constants/constants';
 import CalendarEvents from './CalendarEvents';
 import Times from '../../models/Times';
+// import NowLine from './NowLine';
 
 const generateLayoutArray = () => {
 	const hours = END_HOUR - START_HOUR;
@@ -26,7 +27,8 @@ const generateLayoutArray = () => {
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		position: 'relative'
+		position: 'relative',
+		width: '100%'
 	},
 	calendarContainer: {
 		flexWrap: 'wrap'
@@ -57,15 +59,32 @@ const useStyles = makeStyles((theme) => ({
 	},
 	eventContainer: {
 		flexGrow: 1
+	},
+	timeEndContainer: {
+		backgroundColor: 'transparent'
+	},
+	timeLabelEnd: {
+		borderRightColor: 'transparent'
 	}
 }));
 
 const CalendarOutline = () => {
+	// const [ height, setHeight ] = useState(0);
+	// const ref = useRef(null);
+
+	// useEffect(
+	// 	() => {
+	// 		setHeight(ref.current.clientHeight);
+	// 	},
+	// 	[ ref ]
+	// );
+
 	const events = useSelector((state) => state.events.events);
 	const classes = useStyles();
 	const layoutArray = generateLayoutArray();
 	return (
 		<div className={classes.root}>
+			{/* <NowLine height={height} /> */}
 			{layoutArray.map((timeData, i) => (
 				<Card
 					elevation={0}
@@ -98,6 +117,28 @@ const CalendarOutline = () => {
 					</Grid>
 				</Card>
 			))}
+			<Card
+				// ref={ref}
+				elevation={0}
+				className={[
+					classes.timeContainer,
+					classes.timeContainerBold,
+					classes.timeEndContainer
+				].join(' ')}
+			>
+				<Grid container className={classes.calendarContainer}>
+					<Grid
+						item
+						className={[ classes.timeLabel, classes.timeLabelEnd ].join(' ')}
+					>
+						<Typography variant="body2" className={classes.timeLabelBold}>
+							{END_HOUR > 12 ? END_HOUR - 12 : END_HOUR}:00{' '}
+							{END_HOUR > 12 && END_HOUR !== 24 ? 'PM' : 'AM'}
+						</Typography>
+					</Grid>
+					<Grid item className={classes.eventContainer} />
+				</Grid>
+			</Card>
 		</div>
 	);
 };

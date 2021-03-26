@@ -57,9 +57,9 @@ class Event {
 
 			//TODO: Refactor the following
 			//In some scenarios, we can show next events on the left of the previous events
+			//use rowspan
 			const before = event.overlaps.before;
 			const after = event.overlaps.after;
-
 			event.dimensions.left =
 				before.length === 0
 					? 0
