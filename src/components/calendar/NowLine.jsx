@@ -3,7 +3,7 @@ import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
+import purple from '@material-ui/core/colors/purple';
 import red from '@material-ui/core/colors/red';
 
 import {
@@ -16,13 +16,16 @@ const DELAY = 60;
 
 const useStyles = makeStyles((theme) => ({
 	nowLine: {
+		width: 'calc(100% + 20px)',
+		left: -10,
+
 		paddingTop: 1,
 		paddingBottom: 1,
-		background: `linear-gradient(to right top, ${red[900]}, ${blue[700]}, ${red[900]})`,
+		background: `linear-gradient(to right top, ${red[900]}, ${purple[700]})`,
 		transition: theme.transitions.create([ 'top', 'visibility', 'background' ]),
 		'&:hover': {
 			cursor: 'pointer',
-			background: `linear-gradient(to right top, ${blue[700]}, ${red[900]}, ${blue[700]})`
+			background: `linear-gradient(to right top, ${purple[700]}, ${red[900]})`
 		}
 	},
 	nowLineShow: {
