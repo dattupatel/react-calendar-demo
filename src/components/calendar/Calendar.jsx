@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import { loadEvents } from '../../store/actions';
-import CalendarLayout from './CalendarLayout';
 import CalendarOutline from './CalendarOutline';
 
 const Calendar = () => {
@@ -16,7 +15,7 @@ const Calendar = () => {
 	);
 
 	return (
-		<CalendarLayout>
+		<Fragment>
 			<Typography variant="h5" component="h1">
 				Today's Calendar
 			</Typography>
@@ -24,7 +23,7 @@ const Calendar = () => {
 				{moment().format('dddd, MMMM DD, YYYY')}
 			</Typography>
 			<CalendarOutline />
-		</CalendarLayout>
+		</Fragment>
 	);
 };
 

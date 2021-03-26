@@ -44,19 +44,12 @@ const CalendarEvent = (props) => {
 		setAnchorEl(null);
 	};
 	const open = Boolean(anchorEl);
-	const id = open ? `event-popover-${props.event.id}` : undefined;
 	return (
 		<Fragment>
-			<Box
-				p={0.5}
-				className={classes.root}
-				aria-describedby={id}
-				onClick={handleClick}
-			>
+			<Box p={0.5} className={classes.root} onClick={handleClick}>
 				<EventBrief event={props.event} />
 			</Box>
 			<Popover
-				id={id}
 				open={open}
 				anchorEl={anchorEl}
 				onClose={handleClose}

@@ -30,9 +30,7 @@ const useStyles = makeStyles((theme) => ({
 		position: 'relative',
 		width: '100%'
 	},
-	calendarContainer: {
-		flexWrap: 'wrap'
-	},
+	calendarContainer: {},
 	timeContainer: {
 		borderTopWidth: 1,
 		borderTopStyle: 'solid'

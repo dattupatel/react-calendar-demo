@@ -29,7 +29,7 @@ const Attendees = (props) => {
 			<Typography variant="h6" component="p">
 				Attendees
 			</Typography>
-			<List className={classes.root}>
+			<List className={classes.root} dense={true}>
 				{props.attendees.map((a) => (
 					<ListItem key={a} button>
 						<ListItemAvatar className={classes.avatar}>

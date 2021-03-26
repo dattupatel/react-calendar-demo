@@ -4,8 +4,7 @@ import {
 	START_HOUR,
 	END_HOUR,
 	LEAST_MEETING_LENGTH_MINUTES,
-	LONGEST_MEETING_STEP,
-	MAX_STEP_MINUTES
+	LONGEST_MEETING_STEP
 } from '../constants/constants';
 import Events from '../models/Events';
 
@@ -50,7 +49,7 @@ const generateMeetingEvents = () => {
 	const end =
 		start +
 		randomStartMend * LEAST_MEETING_LENGTH_MINUTES * 60 * 1000 +
-		getRandomNumber(0, MAX_STEP_MINUTES) * 60 * 1000;
+		getRandomNumber(0, LEAST_MEETING_LENGTH_MINUTES) * 60 * 1000;
 
 	return {
 		start: start,

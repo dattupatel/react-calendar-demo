@@ -5,7 +5,7 @@ import eventsReducer from './store/reducer';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { theme } from './assets/theme';
-import Calendar from './components/calendar/Calendar';
+import AppComponent from './components/AppComponent';
 
 const rootReducer = combineReducers({
 	events: eventsReducer
@@ -18,7 +18,7 @@ function App() {
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
 				<CssBaseline />
-				<Calendar />
+				<AppComponent />
 			</ThemeProvider>
 		</Provider>
 	);

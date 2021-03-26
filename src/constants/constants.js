@@ -4,11 +4,8 @@ export const END_HOUR = 21;
 
 //Must be a factor of 60
 export const LEAST_MEETING_LENGTH_MINUTES = 15;
-export const STEP_MINUTES = 1;
 
-export const MAX_STEP_MINUTES = 2;
-
-//This number represents the rowspan
+//The longest a meeting can be in minutes => ((LEAST_MEETING_LENGTH_MINUTES * LONGEST_MEETING_STEP) + random number between 0 and 15) minutes meetings
 export const LONGEST_MEETING_STEP = 8;
 
 export const LAYOUT_DIMENSION = {
