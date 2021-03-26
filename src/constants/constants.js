@@ -12,6 +12,6 @@ export const MAX_STEP_MINUTES = 2;
 export const LONGEST_MEETING_STEP = 8;
 
 export const LAYOUT_DIMENSION = {
-	left: 85,
+	left: 90,
 	width: 700
 };
