@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
+import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import red from '@material-ui/core/colors/red';
@@ -15,9 +16,14 @@ const DELAY = 60;
 
 const useStyles = makeStyles((theme) => ({
 	nowLine: {
-		height: 3,
+		paddingTop: 1,
+		paddingBottom: 1,
 		background: `linear-gradient(to right top, ${red[900]}, ${blue[700]}, ${red[900]})`,
-		transition: theme.transitions.create([ 'top', 'visibility' ])
+		transition: theme.transitions.create([ 'top', 'visibility', 'background' ]),
+		'&:hover': {
+			cursor: 'pointer',
+			background: `linear-gradient(to right top, ${blue[700]}, ${red[900]}, ${blue[700]})`
+		}
 	},
 	nowLineShow: {
 		visibility: 'visible'
@@ -32,6 +38,7 @@ const NowLine = ({ height, ...props }) => {
 	const timer = useRef(null);
 	const dayStartsAt = START_HOUR * 60 * 60 * 1000;
 	const dayEndsAt = END_HOUR * 60 * 60 * 1000;
+	// const nowInHM = (START_HOUR + 0.5) * 60 * 60 * 1000;
 	const nowInHM = moment
 		.duration(moment().seconds(0).milliseconds(0).format('HH:mm'))
 		.asMilliseconds();
@@ -84,14 +91,16 @@ const NowLine = ({ height, ...props }) => {
 	}, []);
 
 	return (
-		<Divider
-			absolute={true}
-			className={[
-				classes.nowLine,
-				timerHasStarted ? classes.nowLineShow : classes.nowLineHide
-			].join(' ')}
-			style={{ top: top }}
-		/>
+		<Tooltip title="Now" placement="left">
+			<Divider
+				absolute={true}
+				className={[
+					classes.nowLine,
+					timerHasStarted ? classes.nowLineShow : classes.nowLineHide
+				].join(' ')}
+				style={{ top: top }}
+			/>
+		</Tooltip>
 	);
 };
 
