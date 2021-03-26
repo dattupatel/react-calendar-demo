@@ -1,5 +1,5 @@
 import Jabber from 'jabber';
-import { getRandomNumber } from '../helpers/utils';
+import { getRandomNumber, getMinNumWeightedRandomNumber } from '../helpers/utils';
 import {
 	START_HOUR,
 	END_HOUR,
@@ -49,7 +49,7 @@ const generateMeetingEvents = () => {
 	const end =
 		start +
 		randomStartMend * LEAST_MEETING_LENGTH_MINUTES * 60 * 1000 +
-		getRandomNumber(0, LEAST_MEETING_LENGTH_MINUTES) * 60 * 1000;
+		getMinNumWeightedRandomNumber(0, LEAST_MEETING_LENGTH_MINUTES) * 60 * 1000;
 
 	return {
 		start: start,

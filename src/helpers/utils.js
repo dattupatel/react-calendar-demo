@@ -9,3 +9,6 @@ export const generateLightColorHex = () => {
 export const getRandomNumber = (min, max) => {
 	return Math.floor(Math.random() * (max - min)) + min;
 };
+export const getMinNumWeightedRandomNumber = (min, max) => {
+	return Math.floor(max / (Math.random() * max + min));
+};
