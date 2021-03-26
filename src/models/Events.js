@@ -55,7 +55,7 @@ class Event {
 					.map((a) => a.id);
 			}
 
-			//TODO: Refactor the following
+			//@todo Refactor the code to set left and width of the event.
 			//In some scenarios, we can show next events on the left of the previous events
 			//use rowspan
 			const before = event.overlaps.before;
