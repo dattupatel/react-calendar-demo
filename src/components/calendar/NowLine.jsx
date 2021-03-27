@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 //@todo Start when the page was loaded before START_HOUR
 //@todo End when the page was loaded before END_HOUR
-//@todo Start the timer and set interval with the second (or ms) precision
+//@todo Start the timer with the second (or ms) precision and then set interval
 const NowLine = ({ rowHeight, ...props }) => {
 	const getNow = useCallback(() => {
 		return moment
