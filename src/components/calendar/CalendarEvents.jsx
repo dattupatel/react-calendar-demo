@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CalendarEvents = (props) => {
+	const classes = useStyles();
 	const events = useSelector((state) => state.events.events);
 
-	const classes = useStyles();
 	return (
 		<Box className={classes.root}>
 			{events.map((event) => (

@@ -37,21 +37,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const doSetupLayout = (event, rowHeight) => {
-	const e = Event.cloneEvent(event);
+	const newEvent = Event.cloneEvent(event);
 	const startOfDay = START_HOUR * 60;
-	const topSpan = (e.startInMinutes - startOfDay) / LEAST_MEETING_LENGTH_MINUTES;
-	e.layout.top = rowHeight * topSpan + topSpan;
+	const topSpan = (newEvent.startInMinutes - startOfDay) / LEAST_MEETING_LENGTH_MINUTES;
+	newEvent.layout.top = rowHeight * topSpan + topSpan;
 
-	const minutesSpan = e.lengthInMinutes / LEAST_MEETING_LENGTH_MINUTES;
-	e.layout.height = rowHeight * minutesSpan + minutesSpan;
+	const minutesSpan = newEvent.lengthInMinutes / LEAST_MEETING_LENGTH_MINUTES;
+	newEvent.layout.height = rowHeight * minutesSpan + minutesSpan;
 
 	const width = LAYOUT_DIMENSION.width - LAYOUT_DIMENSION.left;
 
-	const colWidth = width / e.layout.totalColumns;
+	const colWidth = width / newEvent.layout.totalColumns;
 
-	e.layout.width = colWidth * e.layout.colspan;
-	e.layout.left = colWidth * e.layout.column;
-	return e;
+	newEvent.layout.width = colWidth * newEvent.layout.colspan;
+	newEvent.layout.left = colWidth * newEvent.layout.column;
+	return newEvent;
 };
 
 const CalendarEvent = ({ rowHeight, ...props }) => {
@@ -69,11 +69,11 @@ const CalendarEvent = ({ rowHeight, ...props }) => {
 		layout: event.layout
 	});
 
-	const onChangeHandler = (key, e) => {
+	const onChangeHandler = (key, evt) => {
 		setEvent((prev) => {
-			const newE = Event.cloneEvent(prev);
-			newE.layout[key] = parseInt(e.target.value);
-			return setupLayout(newE);
+			const event = Event.cloneEvent(prev);
+			event.layout[key] = parseInt(evt.target.value);
+			return setupLayout(event);
 		});
 	};
 
