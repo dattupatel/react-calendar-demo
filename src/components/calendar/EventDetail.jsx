@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EventDetail = (props) => {
 	const classes = useStyles();
-	const [ editMode, setEditMode ] = useState(true);
+	const [ editMode, setEditMode ] = useState(false);
 	return (
 		<Card className={classes.popoverPaper}>
 			<CardContent className={classes.popoverTime}>
