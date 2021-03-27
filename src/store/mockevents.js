@@ -17,6 +17,7 @@ const generateRandomEvent = () => {
 	const attendees = new Array(getRandomNumber(0, 4)).fill(null).map(() => {
 		return jabber.createFullName(false);
 	});
+	const location = jabber.createParagraph(getRandomNumber(1, 4));
 
 	return {
 		id,
@@ -24,7 +25,8 @@ const generateRandomEvent = () => {
 		description,
 		start,
 		end,
-		attendees: attendees
+		attendees: attendees,
+		location
 	};
 };
 
@@ -59,7 +61,8 @@ const createMockData = () => {
 				description: e.description,
 				start: e.start,
 				end: e.end,
-				attendees: e.attendees
+				attendees: e.attendees,
+				location: e.location
 			};
 		});
 		resolve(data);
@@ -77,7 +80,8 @@ const loadData = async (bug) => {
 					description: e.description,
 					start: e.start,
 					end: e.end,
-					attendees: e.attendees
+					attendees: e.attendees,
+					location: e.location
 				};
 			});
 		} catch (err) {

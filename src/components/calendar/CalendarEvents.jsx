@@ -27,8 +27,8 @@ const doSomething = (events, rowHeight) => {
 		e.layout.height = rowHeight * minutesSpan + minutesSpan;
 
 		const width = LAYOUT_DIMENSION.width - LAYOUT_DIMENSION.left;
-		e.layout.width = width / (e.layout.totalColumns + 1);
-		e.layout.left = width / (e.layout.totalColumns + 1) * e.layout.column;
+		e.layout.width = width / e.layout.totalColumns * e.layout.colspan;
+		e.layout.left = width / e.layout.totalColumns * e.layout.column;
 	});
 	return newEvents;
 };

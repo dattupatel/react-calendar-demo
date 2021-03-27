@@ -1,14 +1,21 @@
 //Using https://jsfiddle.net/ilpo/ftbjan06/5/ as a source
-//@todo  Include both start and end comparision for both
 
 const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
 
+const sortEvents = (a, b) => {
+	if (a.start === b.start) {
+		return a.length > b.length ? -1 : 1;
+	}
+	return a.start > b.start ? 1 : -1;
+};
+
 export const doSequentialize = (events) => {
 	const newEvents = [ ...events ];
 
-	newEvents.sort((a, b) => (a.start > b.start ? 1 : -1));
+	newEvents.sort(sortEvents);
+
 	for (let i = 0; i < newEvents.length; i++) {
 		for (let j = 0; j < newEvents.length; j++) {
 			if (collidesWith(newEvents[i], newEvents[j])) {
@@ -41,11 +48,13 @@ export const doSequentialize = (events) => {
 				}
 				el.layout.column = column;
 			}
-		} else el.layout.column = 0;
+		} else {
+			el.layout.column = 0;
+		}
 	}
 
+	//@todo The columns and totalColumns are not being set properly.
 	for (let i = 0; i < newEvents.length; i++) {
-		newEvents[i].layout.totalColumns = 0;
 		if (newEvents[i].layout.cols.length > 1) {
 			let conflictGroup = [];
 			let conflictingColumns = [];
@@ -61,10 +70,9 @@ export const doSequentialize = (events) => {
 					}
 				}
 			};
-
 			addConflictsToGroup(newEvents[i]);
-
-			newEvents[i].layout.totalColumns = Math.max.apply(null, conflictingColumns);
+			newEvents[i].layout.totalColumns =
+				Math.max.apply(null, conflictingColumns) + 1;
 		}
 	}
 
