@@ -121,7 +121,7 @@ const NowLine = ({ rowHeight, ...props }) => {
 	}, []);
 
 	const getToolTipTitle = () => {
-		return `Now ${moment().format('hh:mm A')}`;
+		return `Now ${moment().format('h:mm A')}`;
 	};
 
 	return (
