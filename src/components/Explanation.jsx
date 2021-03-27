@@ -3,49 +3,35 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import HelpIcon from '@material-ui/icons/Help';
-import Popover from '@material-ui/core/Popover';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import MoreIcon from '@material-ui/icons/More';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		textAlign: 'right',
-		marginRight: theme.spacing(5),
-		marginBottom: theme.spacing(5)
-	},
-	card: {
-		backgroundColor: theme.palette.grey[300]
-	},
-	title: {
-		backgroundColor: theme.palette.grey[800],
-		color: 'white',
-		position: 'relative'
-	},
-	titleIcon: {
-		position: 'absolute',
-		right: 10,
-		top: 'calc(50% - 10px)'
+		position: 'fixed',
+		left: 10
 	}
 }));
 
 const Explanation = () => {
 	const classes = useStyles();
-	const [ anchorEl, setAnchorEl ] = useState(null);
+	const [ open, setOpen ] = useState(false);
 	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
+		setOpen(true);
 	};
 
 	const handleClose = () => {
-		setAnchorEl(null);
+		setOpen(false);
 	};
-	const open = Boolean(anchorEl);
 
 	const notes = [
 		'Use React and some other packages, <strong><em>except a package that generates a calendar layout</em></strong>.',
@@ -65,25 +51,10 @@ const Explanation = () => {
 					<HelpIcon fontSize="small" />
 				)}
 			</IconButton>
-			<Popover
-				open={open}
-				anchorEl={anchorEl}
-				onClose={handleClose}
-				anchorOrigin={{
-					vertical: 'top',
-					horizontal: 'right'
-				}}
-				transformOrigin={{
-					vertical: 'bottom',
-					horizontal: 'right'
-				}}
-			>
-				<Card className={classes.card}>
-					<CardContent className={classes.title}>
-						<Typography>Original demo constraints</Typography>
-						<MoreIcon fontSize="small" className={classes.titleIcon} />
-					</CardContent>
-					<CardContent>
+			<Dialog open={open} onClose={handleClose}>
+				<DialogTitle>Original demo constraints</DialogTitle>
+				<DialogContent>
+					<DialogContentText component="div">
 						<List dense={true}>
 							{notes.map((note, i) => (
 								<ListItem key={i}>
@@ -100,9 +71,14 @@ const Explanation = () => {
 								</ListItem>
 							))}
 						</List>
-					</CardContent>
-				</Card>
-			</Popover>
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} color="primary">
+						Close
+					</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 };

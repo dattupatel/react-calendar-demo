@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+//@todo  Include both start and end comparision for both
 const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };

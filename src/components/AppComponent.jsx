@@ -18,12 +18,12 @@ const AppComponent = () => {
 	const classes = useStyles();
 
 	return (
-		<Fragment>
+		<div style={{ minWidth: 850 }}>
+			<Explanation />
 			<Container className={classes.root}>
 				<Calendar />
 			</Container>
-			<Explanation />
-		</Fragment>
+		</div>
 	);
 };
 
