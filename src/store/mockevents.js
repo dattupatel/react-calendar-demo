@@ -48,17 +48,35 @@ const generateMeetingEvents = () => {
 		end: end > lastTime ? lastTime : end
 	};
 };
-export const generateMockEvents = () => {
-	const events = new Array(MAX_EVENTS_PER_DAY).fill({}).map(() => {
-		const e = generateRandomEvent();
-		return {
-			id: e.id,
-			name: e.name,
-			description: e.description,
-			start: e.start,
-			end: e.end,
-			attendees: e.attendees
-		};
-	});
+
+const loadData = (bug) => {
+	if (bug) {
+		return bug.map((e) => {
+			return {
+				id: e.id,
+				name: e.name,
+				description: e.description,
+				start: e.start,
+				end: e.end,
+				attendees: e.attendees
+			};
+		});
+	} else {
+		return new Array(MAX_EVENTS_PER_DAY).fill({}).map(() => {
+			const e = generateRandomEvent();
+			return {
+				id: e.id,
+				name: e.name,
+				description: e.description,
+				start: e.start,
+				end: e.end,
+				attendees: e.attendees
+			};
+		});
+	}
+};
+
+export const generateMockEvents = (bug = undefined) => {
+	const events = loadData(bug);
 	return events;
 };

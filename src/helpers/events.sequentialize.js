@@ -7,7 +7,6 @@ const collidesWith = (a, b) => {
 
 export const doSequentialize = (events) => {
 	const newEvents = [ ...events ];
-	console.log('abc');
 
 	newEvents.sort((a, b) => (a.start > b.start ? 1 : -1));
 	for (let i = 0; i < newEvents.length; i++) {
@@ -46,7 +45,7 @@ export const doSequentialize = (events) => {
 	}
 
 	for (let i = 0; i < newEvents.length; i++) {
-		newEvents[i].totalColumns = 0;
+		newEvents[i].layout.totalColumns = 0;
 		if (newEvents[i].layout.cols.length > 1) {
 			let conflictGroup = [];
 			let conflictingColumns = [];
@@ -71,6 +70,5 @@ export const doSequentialize = (events) => {
 
 	newEvents.forEach((e, i) => (e.layout.sequence = i));
 
-	console.log(newEvents);
 	return newEvents;
 };
