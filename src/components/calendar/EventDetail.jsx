@@ -59,7 +59,7 @@ const EventDetail = (props) => {
 			)}
 			<CardActions className={classes.cardActions}>
 				<Button size="small" color="primary" onClick={props.handleClose}>
-					Dismiss
+					Close
 				</Button>
 			</CardActions>
 		</Card>
