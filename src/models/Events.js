@@ -4,6 +4,7 @@ const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
 
+//@todo Add timezone management
 class Event {
 	layout = {
 		cols: [],
