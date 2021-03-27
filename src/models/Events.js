@@ -24,6 +24,13 @@ class Event {
 		this.end = end;
 		this.attendees = attendees;
 	}
+
+	get length() {
+		return this.end - this.start;
+	}
+	get lengthInMinutes() {
+		return this.length / 1000 / 60;
+	}
 	get startFormatted() {
 		return moment.utc(this.start).format('h:mm A');
 	}
