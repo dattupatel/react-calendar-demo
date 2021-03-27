@@ -1,6 +1,5 @@
 //Using https://jsfiddle.net/ilpo/ftbjan06/5/ as a source
 
-//@todo Find more instances of where it collides
 const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
