@@ -53,7 +53,7 @@ export const doSequentialize = (events) => {
 		}
 	}
 
-	//@todo The columns and totalColumns are not being set properly.
+	//@todo The values for columns, totalColumns and colspan are not being set properly.
 	for (let i = 0; i < newEvents.length; i++) {
 		if (newEvents[i].layout.cols.length > 1) {
 			let conflictGroup = [];
