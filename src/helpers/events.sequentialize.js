@@ -1,4 +1,6 @@
 //Using https://jsfiddle.net/ilpo/ftbjan06/5/ as a source
+
+//@todo Find more instances of where it collides
 const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
@@ -54,7 +56,6 @@ export const doSequentialize = (events) => {
 
 	//@todo The columns and totalColumns are not being set properly.
 	for (let i = 0; i < newEvents.length; i++) {
-		newEvents[i].layout.totalColumns = 0;
 		if (newEvents[i].layout.cols.length > 1) {
 			let conflictGroup = [];
 			let conflictingColumns = [];
@@ -71,7 +72,8 @@ export const doSequentialize = (events) => {
 				}
 			};
 			addConflictsToGroup(newEvents[i]);
-			newEvents[i].layout.totalColumns = Math.max.apply(null, conflictingColumns);
+			newEvents[i].layout.totalColumns =
+				Math.max.apply(null, conflictingColumns) + 1;
 		}
 	}
 
