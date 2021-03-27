@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
@@ -13,7 +15,7 @@ class Event {
 		top: 0,
 		left: 0
 	};
-	//We do constructor this way so that we can pass these values from the API
+
 	constructor(id, name, description, start, end, attendees) {
 		this.id = id;
 		this.name = name;
@@ -22,8 +24,11 @@ class Event {
 		this.end = end;
 		this.attendees = attendees;
 	}
-	get length() {
-		return this.end - this.start;
+	get startFormatted() {
+		return moment.utc(this.start).format('h:mm A');
+	}
+	get endFormatted() {
+		return moment.utc(this.end).format('h:mm A');
 	}
 
 	static doSequentialize(events) {

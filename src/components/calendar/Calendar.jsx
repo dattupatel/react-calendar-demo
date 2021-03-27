@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { loadEvents } from '../../store/actions';
 import CalendarOutline from './CalendarOutline';
 
+//@todo Auto refresh to next day when day changes
 const Calendar = () => {
 	const dispatch = useDispatch();
 	useEffect(

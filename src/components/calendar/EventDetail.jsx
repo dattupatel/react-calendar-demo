@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
-import moment from 'moment';
 import Attendees from './Attendees';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,14 +27,12 @@ const useStyles = makeStyles((theme) => ({
 
 const EventDetail = (props) => {
 	const classes = useStyles();
-	const start = moment.utc(props.event.start).format('h:mm A');
-	const end = moment.utc(props.event.end).format('h:mm A');
 	return (
 		<Card className={classes.popoverPaper}>
 			<CardContent className={classes.popoverTime}>
 				<Typography>
 					<strong>
-						{start} &mdash; {end}
+						{props.event.startFormatted} &mdash; {props.event.endFormatted}
 					</strong>
 				</Typography>
 			</CardContent>

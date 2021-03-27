@@ -5,7 +5,6 @@ import Popover from '@material-ui/core/Popover';
 import { generateLightColorHex } from '../../helpers/utils';
 import EventDetail from './EventDetail';
 import EventBrief from './EventBrief';
-import { LAYOUT_DIMENSION } from '../../constants/constants';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
