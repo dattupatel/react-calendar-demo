@@ -14,13 +14,14 @@ class Event {
 		left: 0
 	};
 
-	constructor(id, name, description, start, end, attendees) {
+	constructor(id, name, description, start, end, attendees, location) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.start = start;
 		this.end = end;
 		this.attendees = attendees;
+		this.location = location;
 	}
 
 	get length() {

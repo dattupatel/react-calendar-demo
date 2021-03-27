@@ -7,7 +7,16 @@ export const loadEvents = () => {
 	return async (dispatch) => {
 		const result = await generateMockEvents();
 		const events = result.map(
-			(e) => new Events(e.id, e.name, e.description, e.start, e.end, e.attendees)
+			(e) =>
+				new Events(
+					e.id,
+					e.name,
+					e.description,
+					e.start,
+					e.end,
+					e.attendees,
+					e.location
+				)
 		);
 		console.log(events);
 
