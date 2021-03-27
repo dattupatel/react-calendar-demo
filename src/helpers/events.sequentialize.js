@@ -44,6 +44,7 @@ export const doSequentialize = (events) => {
 		} else el.layout.column = 0;
 	}
 
+	//@todo The columns, totalColumns and colspan values are not being set properly.
 	for (let i = 0; i < newEvents.length; i++) {
 		newEvents[i].layout.totalColumns = 0;
 		if (newEvents[i].layout.cols.length > 1) {
