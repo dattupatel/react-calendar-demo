@@ -42,6 +42,13 @@ const EventDetail = (props) => {
 			</CardContent>
 			{editMode && (
 				<CardContent>
+					<Button
+						size="small"
+						color="primary"
+						onClick={() => setEditMode(false)}
+					>
+						Close
+					</Button>
 					<pre>{JSON.stringify(props.event.layout, null, 2)}</pre>
 					<Grid container>
 						{[ 'totalColumns', 'column', 'colspan' ].map((c) => {
