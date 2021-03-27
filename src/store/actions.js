@@ -5,11 +5,15 @@ import { doSequentialize } from '../helpers/events.sequentialize';
 export const SET_EVENTS = 'SET_EVENTS';
 export const loadEvents = () => {
 	return async (dispatch) => {
-		const result = await generateMockEvents();
+		let demo;
+		// demo = 'demo1';
+		const result = await generateMockEvents(demo);
 		const events = result.map(
 			(e) => new Events(e.id, e.name, e.description, e.start, e.end, e.attendees)
 		);
-		console.log(events);
+		if (!demo) {
+			console.log(events);
+		}
 
 		dispatch({
 			type: SET_EVENTS,
