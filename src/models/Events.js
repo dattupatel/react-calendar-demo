@@ -9,6 +9,7 @@ class Event {
 		column: 0,
 		totalColumns: 1,
 		colspan: 1,
+		colSkip: 0,
 		width: '100%',
 		height: 'auto',
 		top: 0,
@@ -23,6 +24,9 @@ class Event {
 		this.end = end;
 		this.attendees = attendees || [];
 		this.location = location;
+	}
+	set setLayout(val) {
+		this.layout = val;
 	}
 
 	get length() {
@@ -39,6 +43,20 @@ class Event {
 	}
 	get endFormatted() {
 		return moment.utc(this.end).format('h:mm A');
+	}
+
+	static cloneEvent(event) {
+		const newEvent = new Event(
+			event.id,
+			event.name,
+			event.description,
+			event.start,
+			event.end,
+			event.attendees,
+			event.location
+		);
+		newEvent.setLayout = event.layout;
+		return newEvent;
 	}
 }
 

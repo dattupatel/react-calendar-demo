@@ -1,10 +1,16 @@
-import React, { useState, useMemo, Fragment } from 'react';
+import React, { useCallback, useState, useMemo, Fragment } from 'react';
 import Box from '@material-ui/core/Box';
 import { makeStyles, darken } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import { generateLightColorHex } from '../../helpers/utils';
+import Event from '../../models/Events';
 import EventDetail from './EventDetail';
 import EventBrief from './EventBrief';
+import {
+	LAYOUT_DIMENSION,
+	START_HOUR,
+	LEAST_MEETING_LENGTH_MINUTES
+} from '../../constants/constants';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,11 +36,46 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const CalendarEvent = (props) => {
+const doSetupLayout = (event, rowHeight) => {
+	const e = Event.cloneEvent(event);
+	const startOfDay = START_HOUR * 60;
+	const topSpan = (e.startInMinutes - startOfDay) / LEAST_MEETING_LENGTH_MINUTES;
+	e.layout.top = rowHeight * topSpan + topSpan;
+
+	const minutesSpan = e.lengthInMinutes / LEAST_MEETING_LENGTH_MINUTES;
+	e.layout.height = rowHeight * minutesSpan + minutesSpan;
+
+	const width = LAYOUT_DIMENSION.width - LAYOUT_DIMENSION.left;
+
+	const colWidth = width / e.layout.totalColumns;
+
+	e.layout.width = colWidth * e.layout.colspan;
+	e.layout.left = colWidth * e.layout.column + e.layout.colSkip * colWidth;
+	return e;
+};
+
+const CalendarEvent = ({ rowHeight, ...props }) => {
+	const setupLayout = useCallback(
+		(event) => {
+			return doSetupLayout(event, rowHeight);
+		},
+		[ rowHeight ]
+	);
+
+	const [ event, setEvent ] = useState(setupLayout(props.event));
+
 	const classes = useStyles({
 		bgColor: useMemo(() => generateLightColorHex(), []),
-		layout: props.event.layout
+		layout: event.layout
 	});
+
+	const onChangeHandler = (key, e) => {
+		setEvent((prev) => {
+			const newE = Event.cloneEvent(prev);
+			newE.layout[key] = parseInt(e.target.value);
+			return setupLayout(newE);
+		});
+	};
 
 	//#region Popover
 	const [ anchorEl, setAnchorEl ] = useState(null);
@@ -63,7 +104,7 @@ const CalendarEvent = (props) => {
 				className={[ classes.root, classes.layout ].join(' ')}
 				onClick={handleClick}
 			>
-				<EventBrief event={props.event} />
+				<EventBrief event={event} />
 			</Box>
 			<Popover
 				{...popoverProps}
@@ -71,7 +112,11 @@ const CalendarEvent = (props) => {
 				anchorEl={anchorEl}
 				onClose={handleClose}
 			>
-				<EventDetail event={props.event} handleClose={handleClose} />
+				<EventDetail
+					event={event}
+					handleClose={handleClose}
+					onChange={onChangeHandler}
+				/>
 			</Popover>
 		</Fragment>
 	);
