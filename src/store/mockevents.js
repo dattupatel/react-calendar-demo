@@ -37,7 +37,7 @@ export const generateRandomEvent = () => {
 	};
 };
 
-//TODO: Refactor
+//@todo: Refactor the code to generate a random event.
 const generateMeetingEvents = () => {
 	const lastTime = END_HOUR * 1000 * 60 * 60;
 	const randomStart = getRandomNumber(START_HOUR, END_HOUR);

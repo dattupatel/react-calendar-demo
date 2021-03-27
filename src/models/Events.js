@@ -13,18 +13,10 @@ class Event {
 	get length() {
 		return this.end - this.start;
 	}
-	get rowspan() {
-		return this.length / 1000 / 60 / LEAST_MEETING_LENGTH_MINUTES;
-	}
-
-	get right() {
-		return this.dimensions.left + this.dimensions.width;
-	}
 
 	static doSequentialize(events) {
 		const newEvents = [ ...events ];
-		newEvents.sort((a, b) => (a.end > b.end ? 1 : -1));
-		newEvents.sort((a, b) => (a.start > b.start ? 1 : -1));
+		newEvents.sort((a, b) => a.start - b.start);
 		return newEvents;
 	}
 }

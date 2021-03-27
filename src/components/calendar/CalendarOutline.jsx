@@ -32,28 +32,31 @@ const useStyles = makeStyles((theme) => ({
 		position: 'absolute',
 		top: 0,
 		left: LAYOUT_DIMENSION.left,
-		width: LAYOUT_DIMENSION.width - LAYOUT_DIMENSION.left
+		width: LAYOUT_DIMENSION.width - LAYOUT_DIMENSION.left,
+		height: (props) => `calc(100% - ${props.rowHeight}px)`
 	}
 }));
 
 const CalendarOutline = () => {
-	const [ height, setHeight ] = useState(0);
+	const [ rowHeight, setRowHeight ] = useState(0);
 	const ref = useRef(null);
 
 	useEffect(
 		() => {
 			if (ref.current) {
-				setHeight(ref.current.clientHeight + 1);
+				setRowHeight(ref.current.clientHeight);
 			}
 		},
 		[ ref ]
 	);
 
-	const classes = useStyles();
+	const classes = useStyles({
+		rowHeight: rowHeight
+	});
 	const layoutArray = generateLayoutArray();
 	return (
 		<div className={classes.root}>
-			<NowLine height={height} />
+			<NowLine rowHeight={rowHeight} />
 			<Box>
 				{layoutArray.map((timeData, i) => (
 					<Outline key={i} timeData={timeData} />
@@ -73,7 +76,7 @@ const CalendarOutline = () => {
 				/>
 			</Box>
 			<div className={classes.eventsContainer}>
-				<CalendarEvents height={height} />
+				<CalendarEvents rowHeight={rowHeight} />
 			</div>
 		</div>
 	);

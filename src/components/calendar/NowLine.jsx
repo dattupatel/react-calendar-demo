@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,14 +12,21 @@ import {
 	END_HOUR
 } from '../../constants/constants';
 
-const DELAY = 60;
+const DELAY = 1;
 
 const useStyles = makeStyles((theme) => ({
 	nowLineContainer: {
 		position: 'absolute',
 		zIndex: 10,
 		width: '100%',
-		cursor: 'pointer'
+		cursor: 'pointer',
+		transition: theme.transitions.create([ 'top', 'background' ])
+	},
+	nowLineContainerShow: {
+		visibility: 'visible'
+	},
+	nowLineContainerHide: {
+		visibility: 'hidden'
 	},
 	nowLine: {
 		marginLeft: theme.spacing(1),
@@ -28,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 			purple[700],
 			0.6
 		)})`,
-		transition: theme.transitions.create([ 'top', 'visibility', 'background' ]),
+		transition: theme.transitions.create([ 'top', 'background' ]),
 		'&:hover': {
 			background: `linear-gradient(to right top, ${purple[700]}, ${red[900]})`,
 			'&:after': {
@@ -47,24 +54,23 @@ const useStyles = makeStyles((theme) => ({
 			left: -theme.spacing(1),
 			top: -theme.spacing(1)
 		}
-	},
-	nowLineShow: {
-		visibility: 'visible'
-	},
-	nowLineHide: {
-		visibility: 'hidden'
 	}
 }));
 
-//@todo The now line doesn't start at the accurate seconds interval
-const NowLine = ({ height, ...props }) => {
+//@todo Start when the page was loaded before START_HOUR
+//@todo End when the page was loaded before END_HOUR
+//@todo Start the timer and set interval with the second (or ms) precision
+const NowLine = ({ rowHeight, ...props }) => {
+	const getNow = useCallback(() => {
+		return moment
+			.duration(moment().seconds(0).milliseconds(0).format('HH:mm'))
+			.asMilliseconds();
+	}, []);
+
 	const timer = useRef(null);
 	const dayStartsAt = START_HOUR * 60 * 60 * 1000;
 	const dayEndsAt = END_HOUR * 60 * 60 * 1000;
-	// const nowInHM = (START_HOUR + 0.5) * 60 * 60 * 1000;
-	const nowInHM = moment
-		.duration(moment().seconds(0).milliseconds(0).format('HH:mm'))
-		.asMilliseconds();
+	const nowInHM = getNow();
 
 	const classes = useStyles();
 	const [ timerHasStarted, setTimerHasStarted ] = useState(false);
@@ -77,15 +83,15 @@ const NowLine = ({ height, ...props }) => {
 				top === 0 &&
 				nowInHM >= dayStartsAt &&
 				nowInHM < dayEndsAt &&
-				height > 0
+				rowHeight > 0
 			) {
 				const now = nowInHM - dayStartsAt;
-				const minute = (height + 1) / LEAST_MEETING_LENGTH_MINUTES;
+				const minute = (rowHeight + 1) / LEAST_MEETING_LENGTH_MINUTES;
 				const top = minute * moment.duration(now).asMinutes();
 				setTop(top);
 			}
 		},
-		[ top, height, nowInHM, dayStartsAt, dayEndsAt ]
+		[ top, rowHeight, nowInHM, dayStartsAt, dayEndsAt ]
 	);
 
 	useEffect(
@@ -98,12 +104,12 @@ const NowLine = ({ height, ...props }) => {
 
 			if (startTimer && !timerHasStarted) {
 				timer.current = setInterval(() => {
-					setTop((prev) => prev + height / LEAST_MEETING_LENGTH_MINUTES);
+					setTop((prev) => prev + rowHeight / LEAST_MEETING_LENGTH_MINUTES);
 				}, DELAY * 1000);
 				setTimerHasStarted(true);
 			}
 		},
-		[ startTimer, timerHasStarted, top, height, dayStartsAt, dayEndsAt, nowInHM ]
+		[ startTimer, timerHasStarted, top, rowHeight, dayStartsAt, dayEndsAt, nowInHM ]
 	);
 	useEffect(() => {
 		return () => {
@@ -118,7 +124,9 @@ const NowLine = ({ height, ...props }) => {
 			<div
 				className={[
 					classes.nowLineContainer,
-					timerHasStarted ? classes.nowLineShow : classes.nowLineHide
+					timerHasStarted
+						? classes.nowLineContainerShow
+						: classes.nowLineContainerHide
 				].join(' ')}
 				style={{ top: top }}
 			>

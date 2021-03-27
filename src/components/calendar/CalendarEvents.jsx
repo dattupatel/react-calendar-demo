@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import CalendarEvent from './CalendarEvent';
 
@@ -16,16 +16,16 @@ const CalendarEvents = (props) => {
 
 	const classes = useStyles();
 	return (
-		<Grid container className={classes.root}>
+		<Box className={classes.root}>
 			{events.map((event, index) => (
 				<CalendarEvent
 					index={index}
 					key={event.id}
 					event={event}
-					height={props.height}
+					rowHeight={props.rowHeight}
 				/>
 			))}
-		</Grid>
+		</Box>
 	);
 };
 
