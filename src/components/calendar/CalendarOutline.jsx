@@ -55,7 +55,7 @@ const CalendarOutline = () => {
 	});
 	const layoutArray = generateLayoutArray();
 	return (
-		<div className={classes.root}>
+		<section className={classes.root}>
 			<NowLine rowHeight={rowHeight} />
 			<Box>
 				{layoutArray.map((timeData, i) => (
@@ -78,7 +78,7 @@ const CalendarOutline = () => {
 			<div className={classes.eventsContainer}>
 				<CalendarEvents rowHeight={rowHeight} />
 			</div>
-		</div>
+		</section>
 	);
 };
 

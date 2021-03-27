@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import HelpIcon from '@material-ui/icons/Help';
@@ -18,7 +19,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		position: 'fixed',
-		left: 10
+		left: 10,
+		top: 20
 	}
 }));
 
@@ -44,13 +46,15 @@ const Explanation = () => {
 
 	return (
 		<div className={classes.root}>
-			<IconButton onClick={handleClick}>
-				{open ? (
-					<HelpOutlineIcon fontSize="small" />
-				) : (
-					<HelpIcon fontSize="small" />
-				)}
-			</IconButton>
+			<Tooltip title="Explanation" placement="right">
+				<IconButton onClick={handleClick} size="small">
+					{open ? (
+						<HelpOutlineIcon fontSize="small" />
+					) : (
+						<HelpIcon fontSize="small" />
+					)}
+				</IconButton>
+			</Tooltip>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Original demo constraints</DialogTitle>
 				<DialogContent>

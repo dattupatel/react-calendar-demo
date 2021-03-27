@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, Fragment } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import { loadEvents } from '../../store/actions';
 import CalendarOutline from './CalendarOutline';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,21 +27,20 @@ const Calendar = () => {
 
 	return (
 		<Fragment>
-			<Grid container direction="row" justify="space-between" alignItems="center">
-				<Grid item>
-					<Typography variant="h5" component="h1">
-						Today's Calendar
-					</Typography>
-					<Typography color="textSecondary" gutterBottom>
-						{moment().format('dddd, MMMM DD, YYYY')}
-					</Typography>
-				</Grid>
-				<Grid item>
+			<div style={{ position: 'fixed', left: 10, top: 70 }}>
+				<Tooltip title="Refresh Events" placement="right">
 					<IconButton onClick={onLoad} size="small">
 						<AutorenewIcon fontSize="small" />
 					</IconButton>
-				</Grid>
-			</Grid>
+				</Tooltip>
+			</div>
+			<Typography variant="h5" component="h1">
+				Today's Calendar
+			</Typography>
+			<Typography color="textSecondary" gutterBottom>
+				{moment().format('dddd, MMMM DD, YYYY')}
+			</Typography>
+
 			<CalendarOutline />
 		</Fragment>
 	);

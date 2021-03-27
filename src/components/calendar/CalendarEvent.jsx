@@ -103,6 +103,7 @@ const CalendarEvent = ({ rowHeight, ...props }) => {
 				p={0.5}
 				className={[ classes.root, classes.layout ].join(' ')}
 				onClick={handleClick}
+				component="article"
 			>
 				<EventBrief event={event} />
 			</Box>
