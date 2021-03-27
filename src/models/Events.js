@@ -32,6 +32,9 @@ class Event {
 	get lengthInMinutes() {
 		return this.length / 1000 / 60;
 	}
+	get startInMinutes() {
+		return this.start / 1000 / 60;
+	}
 	get startFormatted() {
 		return moment.utc(this.start).format('h:mm A');
 	}
