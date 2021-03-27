@@ -7,17 +7,8 @@ import {
 	LONGEST_MEETING_STEP,
 	MAX_EVENTS_PER_DAY
 } from '../constants/constants';
-import Events from '../models/Events';
 
-export const generateMockEvents = () => {
-	const events = new Array(MAX_EVENTS_PER_DAY).fill({}).map(() => {
-		const e = generateRandomEvent();
-		return new Events(e.id, e.name, e.description, e.start, e.end, e.attendees);
-	});
-	return Events.doSequentialize(events);
-};
-
-export const generateRandomEvent = () => {
+const generateRandomEvent = () => {
 	const jabber = new Jabber();
 	const id = Math.random().toString();
 	const name = jabber.createParagraph(getRandomNumber(1, 4));
@@ -56,4 +47,18 @@ const generateMeetingEvents = () => {
 		start: start,
 		end: end > lastTime ? lastTime : end
 	};
+};
+export const generateMockEvents = () => {
+	const events = new Array(MAX_EVENTS_PER_DAY).fill({}).map(() => {
+		const e = generateRandomEvent();
+		return {
+			id: e.id,
+			name: e.name,
+			description: e.description,
+			start: e.start,
+			end: e.end,
+			attendees: e.attendees
+		};
+	});
+	return events;
 };
