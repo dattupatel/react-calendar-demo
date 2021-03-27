@@ -5,7 +5,7 @@ import { doSequentialize } from '../helpers/events.sequentialize';
 export const SET_EVENTS = 'SET_EVENTS';
 export const loadEvents = () => {
 	return async (dispatch) => {
-		const result = await generateMockEvents('demo1');
+		const result = await generateMockEvents();
 		const events = result.map(
 			(e) =>
 				new Events(
