@@ -1,5 +1,6 @@
 import { generateMockEvents } from './mockevents';
 import Events from '../models/Events';
+import { doSequentialize } from '../helpers/events.sequentialize';
 
 export const SET_EVENTS = 'SET_EVENTS';
 export const loadEvents = () => {
@@ -9,7 +10,7 @@ export const loadEvents = () => {
 	return {
 		type: SET_EVENTS,
 		payload: {
-			events: Events.doSequentialize(events)
+			events: doSequentialize(events)
 		}
 	};
 };
