@@ -4,7 +4,7 @@ const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
 
-const sortEvents = (a, b) => {
+const doSortEvents = (a, b) => {
 	if (a.start === b.start) {
 		return a.length > b.length ? -1 : 1;
 	}
@@ -14,7 +14,7 @@ const sortEvents = (a, b) => {
 export const doSequentialize = (events) => {
 	const newEvents = [ ...events ];
 
-	newEvents.sort(sortEvents);
+	newEvents.sort(doSortEvents);
 
 	for (let i = 0; i < newEvents.length; i++) {
 		for (let j = 0; j < newEvents.length; j++) {
@@ -69,8 +69,7 @@ export const doSequentialize = (events) => {
 				}
 			};
 			addConflictsToGroup(newEvents[i]);
-			newEvents[i].layout.totalColumns =
-				Math.max.apply(null, conflictingColumns) + 1;
+			newEvents[i].layout.totalColumns += Math.max.apply(null, conflictingColumns);
 		}
 	}
 
