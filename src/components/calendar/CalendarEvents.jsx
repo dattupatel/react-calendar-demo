@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import CalendarEvent from './CalendarEvent';
-import { START_HOUR, LEAST_MEETING_LENGTH_MINUTES } from '../../constants/constants';
+import {
+	LAYOUT_DIMENSION,
+	START_HOUR,
+	LEAST_MEETING_LENGTH_MINUTES
+} from '../../constants/constants';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -21,6 +25,10 @@ const doSomething = (events, rowHeight) => {
 
 		const minutesSpan = e.lengthInMinutes / LEAST_MEETING_LENGTH_MINUTES;
 		e.layout.height = rowHeight * minutesSpan + minutesSpan;
+
+		const width = LAYOUT_DIMENSION.width - LAYOUT_DIMENSION.left;
+		e.layout.width = width / (e.layout.totalColumns + 1);
+		e.layout.left = width / (e.layout.totalColumns + 1) * e.layout.column;
 	});
 	return newEvents;
 };

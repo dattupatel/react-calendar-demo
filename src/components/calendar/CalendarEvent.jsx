@@ -11,13 +11,14 @@ const useStyles = makeStyles((theme) => ({
 		overflow: 'hidden',
 		borderWidth: 1,
 		borderStyle: 'solid',
-		borderColor: (props) => darken(props.bgColor, 0.5),
+		borderColor: (props) => darken(props.bgColor, 0.2),
 		backgroundColor: (props) => props.bgColor,
 		boxSizing: 'border-box',
+		transition: theme.transitions.create([ 'border', 'background' ]),
 		'&:hover': {
 			cursor: 'pointer',
 			backgroundColor: (props) => darken(props.bgColor, 0.2),
-			borderColor: (props) => darken(props.bgColor, 0.8)
+			borderColor: (props) => darken(props.bgColor, 0.4)
 		}
 	},
 	layout: {
