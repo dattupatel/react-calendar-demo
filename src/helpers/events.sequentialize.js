@@ -3,10 +3,18 @@ const collidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
 
+const sortEvents = (a, b) => {
+	if (a.start === b.start) {
+		return a.length > b.length ? -1 : 1;
+	}
+	return a.start > b.start ? 1 : -1;
+};
+
 export const doSequentialize = (events) => {
 	const newEvents = [ ...events ];
 
-	newEvents.sort((a, b) => (a.start > b.start ? 1 : -1));
+	newEvents.sort(sortEvents);
+
 	for (let i = 0; i < newEvents.length; i++) {
 		for (let j = 0; j < newEvents.length; j++) {
 			if (collidesWith(newEvents[i], newEvents[j])) {
