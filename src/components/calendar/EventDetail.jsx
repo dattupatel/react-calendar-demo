@@ -43,26 +43,29 @@ const EventDetail = (props) => {
 				<Typography variant="h5" component="h1">
 					<strong>{props.event.name}</strong>
 				</Typography>
-				<Grid
-					container
-					direction="row"
-					alignItems="center"
-					component={Box}
-					mb={2}
-				>
-					<Grid item>
-						<LocationOnOutlinedIcon fontSize="large" color="action" />
+				{props.event.location && (
+					<Grid
+						container
+						direction="row"
+						alignItems="center"
+						component={Box}
+						mb={2}
+					>
+						<Grid item>
+							<LocationOnOutlinedIcon fontSize="large" color="action" />
+						</Grid>
+						<Grid item>
+							<Typography
+								variant="body1"
+								component="h2"
+								className={classes.text}
+							>
+								{props.event.location}
+							</Typography>
+						</Grid>
 					</Grid>
-					<Grid item>
-						<Typography
-							variant="body1"
-							component="h2"
-							className={classes.text}
-						>
-							{props.event.location}
-						</Typography>
-					</Grid>
-				</Grid>
+				)}
+
 				<Typography
 					variant="body1"
 					component="p"

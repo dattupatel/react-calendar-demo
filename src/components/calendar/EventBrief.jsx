@@ -30,16 +30,22 @@ const EventBrief = (props) => {
 				<strong>{props.event.name}</strong>
 			</Typography>
 
-			<Grid container direction="row" alignItems="center">
-				<Grid item>
-					<LocationOnOutlinedIcon fontSize="small" color="action" />
+			{props.event.location && (
+				<Grid container direction="row" alignItems="center">
+					<Grid item>
+						<LocationOnOutlinedIcon fontSize="small" color="action" />
+					</Grid>
+					<Grid item>
+						<Typography
+							variant="body2"
+							component="h2"
+							className={classes.text}
+						>
+							{props.event.location}
+						</Typography>
+					</Grid>
 				</Grid>
-				<Grid item>
-					<Typography variant="body2" component="h2" className={classes.text}>
-						{props.event.location}
-					</Typography>
-				</Grid>
-			</Grid>
+			)}
 
 			<Typography variant="body1" component="p" className={classes.text}>
 				{props.event.description}
