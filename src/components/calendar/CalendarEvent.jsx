@@ -8,7 +8,6 @@ import EventBrief from './EventBrief';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		width: '100%',
 		overflow: 'hidden',
 		borderWidth: 1,
 		borderStyle: 'solid',
@@ -21,12 +20,19 @@ const useStyles = makeStyles((theme) => ({
 			borderColor: (props) => darken(props.bgColor, 0.8)
 		}
 	},
-	layout: {}
+	layout: {
+		position: 'absolute',
+		left: (props) => props.layout.left,
+		top: (props) => props.layout.top,
+		height: (props) => props.layout.height,
+		width: (props) => props.layout.width
+	}
 }));
 
 const CalendarEvent = (props) => {
 	const classes = useStyles({
-		bgColor: useMemo(() => generateLightColorHex(), [])
+		bgColor: useMemo(() => generateLightColorHex(), []),
+		layout: props.event.layout
 	});
 
 	//#region Popover

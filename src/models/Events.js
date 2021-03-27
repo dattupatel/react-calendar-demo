@@ -10,8 +10,8 @@ class Event {
 		colsBefore: [],
 		column: 0,
 		totalColumns: 0,
-		width: 0,
-		height: 0,
+		width: '100%',
+		height: 'auto',
 		top: 0,
 		left: 0
 	};

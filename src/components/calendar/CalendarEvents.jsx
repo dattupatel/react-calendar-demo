@@ -18,12 +18,7 @@ const CalendarEvents = (props) => {
 	return (
 		<Box className={classes.root}>
 			{events.map((event, index) => (
-				<CalendarEvent
-					index={index}
-					key={event.id}
-					event={event}
-					rowHeight={props.rowHeight}
-				/>
+				<CalendarEvent key={event.id} event={event} rowHeight={props.rowHeight} />
 			))}
 		</Box>
 	);
