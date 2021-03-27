@@ -9,7 +9,6 @@ class Event {
 		column: 0,
 		totalColumns: 1,
 		colspan: 1,
-		colSkip: 0,
 		width: '100%',
 		height: 'auto',
 		top: 0,

@@ -50,7 +50,7 @@ const doSetupLayout = (event, rowHeight) => {
 	const colWidth = width / e.layout.totalColumns;
 
 	e.layout.width = colWidth * e.layout.colspan;
-	e.layout.left = colWidth * e.layout.column + e.layout.colSkip * colWidth;
+	e.layout.left = colWidth * e.layout.column;
 	return e;
 };
 
