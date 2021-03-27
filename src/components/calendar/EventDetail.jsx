@@ -57,9 +57,6 @@ const EventDetail = (props) => {
 					</CardContent>
 				</Fragment>
 			)}
-			<CardContent>
-				<pre>{JSON.stringify(props.event.overlaps, null, 2)}</pre>
-			</CardContent>
 			<CardActions className={classes.cardActions}>
 				<Button size="small" color="primary" onClick={props.handleClose}>
 					Dismiss

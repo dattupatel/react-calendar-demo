@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import CalendarEvent from './CalendarEvent';
 
@@ -10,28 +12,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CalendarEvents = (props) => {
-	const [ height, setHeight ] = useState(0);
-	const ref = useRef(null);
-
-	useEffect(
-		() => {
-			setHeight(ref.current.clientHeight);
-		},
-		[ ref ]
-	);
+	const events = useSelector((state) => state.events.events);
 
 	const classes = useStyles();
 	return (
-		<div ref={ref} className={classes.root}>
-			{props.events.map((event, index) => (
+		<Grid container className={classes.root}>
+			{events.map((event, index) => (
 				<CalendarEvent
 					index={index}
 					key={event.id}
 					event={event}
-					height={height}
+					height={props.height}
 				/>
 			))}
-		</div>
+		</Grid>
 	);
 };
 
