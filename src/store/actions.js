@@ -11,10 +11,12 @@ export const loadEvents = () => {
 		);
 		console.log(events);
 
+		const sequentialized = doSequentialize(events);
+
 		dispatch({
 			type: SET_EVENTS,
 			payload: {
-				events: doSequentialize(events)
+				events: sequentialized
 			}
 		});
 	};
