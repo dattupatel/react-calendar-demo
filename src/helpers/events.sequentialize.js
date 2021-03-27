@@ -48,8 +48,6 @@ export const doSequentialize = (events) => {
 				}
 				el.layout.column = column;
 			}
-		} else {
-			el.layout.column = 0;
 		}
 	}
 
