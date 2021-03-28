@@ -14,7 +14,7 @@ const EventBrief = (props) => {
 	const classes = useStyles();
 	return (
 		<Fragment>
-			<Typography variant='subtitle1' component='h2' className={classes.text}>
+			<Typography variant='subtitle2' component='h2' className={classes.text}>
 				{/* [{props.event.layout.sequence}] -{' '}
 				<strong>{props.event.startFormatted}</strong> to
 				<strong>{props.event.endFormatted}</strong> */}
