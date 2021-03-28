@@ -6,7 +6,7 @@ class Event {
 		sequence: 0,
 		cols: [],
 		colsBefore: [],
-		column: 0,
+		column: undefined,
 		totalColumns: 1,
 		colspan: 1,
 		width: '100%',

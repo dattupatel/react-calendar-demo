@@ -20,51 +20,58 @@ export const doSequentialize = (events) => {
 		for (let j = 0; j < newEvents.length; j++) {
 			if (collidesWith(newEvents[i], newEvents[j])) {
 				newEvents[i].layout.cols.push(j);
-				if (i > j) newEvents[i].layout.colsBefore.push(j);
+				if (i > j)
+					newEvents[i].layout.colsBefore.push({
+						i: j,
+						start: newEvents[j].start,
+						end: newEvents[j].end
+					});
 			}
 		}
 	}
 
 	newEvents.forEach((event, i) => {
 		if (i > 0 && event.layout.colsBefore.length > 0) {
-			if (newEvents[i - 1].layout.column > 0) {
-				for (let j = 0; j < newEvents[i - 1].layout.column; j++) {
-					if (event.layout.colsBefore.indexOf(i - (j + 2)) === -1) {
+			const previousEvent = newEvents[i - 1];
+			if (previousEvent.layout.column > 0) {
+				for (let j = 0; j < previousEvent.layout.column; j++) {
+					const xyz = event.layout.colsBefore.map((c) => c.i);
+					const res = xyz.indexOf(i - (j + 2));
+					if (res === -1) {
 						event.layout.column = newEvents[i - (j + 2)].layout.column;
 					}
 				}
 				if (typeof event.layout.column === 'undefined') {
-					event.column = newEvents[i - 1].column + 1;
+					event.layout.column = previousEvent.layout.column + 1;
 				}
 			}
 			else {
 				let column = 0;
 				for (let j = 0; j < event.layout.colsBefore.length; j++) {
 					if (
-						newEvents[event.layout.colsBefore[event.layout.colsBefore.length - 1 - j]].layout.column ===
-						column
-					)
+						newEvents[event.layout.colsBefore.map((c) => c.i)[event.layout.colsBefore.length - 1 - j]]
+							.layout.column === column
+					) {
 						column++;
+					}
 				}
 				event.layout.column = column;
 			}
 		}
-		event.layout.totalColumns = event.layout.cols.length;
+		else {
+			event.layout.column = 0;
+		}
 	});
 
 	//@todo The values for column, totalColumns and colspan are not being set properly.
 	newEvents.forEach((event, i) => {
 		if (event.layout.cols.length > 1) {
-			// console.log('======================================================');
-			// console.log(i, event.name);
 			let conflictGroup = [];
 			let conflictingColumns = [];
 
 			const addConflictsToGroup = (a) => {
-				// console.log(a.name.substring(0, 4));
 				for (let k = 0; k < a.layout.cols.length; k++) {
 					if (conflictGroup.indexOf(a.layout.cols[k]) === -1) {
-						// console.log('k', k, 'a.layout.cols[k]', a.layout.cols[k]);
 						conflictGroup.push(a.layout.cols[k]);
 						conflictingColumns.push(newEvents[a.layout.cols[k]].layout.column);
 						addConflictsToGroup(newEvents[a.layout.cols[k]]);
@@ -74,10 +81,6 @@ export const doSequentialize = (events) => {
 			addConflictsToGroup(event);
 
 			event.layout.totalColumns = Math.max.apply(null, conflictingColumns) + 1;
-
-			// console.log('conflictGroup', conflictGroup);
-			// console.log('conflictingColumns', conflictingColumns);
-			// console.log(event.layout.totalColumns);
 		}
 	});
 
