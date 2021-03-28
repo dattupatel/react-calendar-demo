@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react';
+import {useSelector} from 'react-redux';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Location from './Location';
@@ -12,17 +13,23 @@ const useStyles = makeStyles((theme) => ({
 
 const EventBrief = (props) => {
 	const classes = useStyles();
+	const mode = useSelector((state) => state.events.debugMode);
 	return (
 		<Fragment>
 			<Typography variant='subtitle2' component='h2' className={classes.text}>
-				{/* [{props.event.layout.sequence}] -{' '}
-				<strong>{props.event.startFormatted}</strong> to
-				<strong>{props.event.endFormatted}</strong> */}
-				<strong>{props.event.startFormatted}</strong>
+				{mode ? (
+					<Fragment>
+						[{props.event.layout.sequence}] - <strong>{props.event.startFormatted}</strong> to
+						<strong>{props.event.endFormatted}</strong>
+					</Fragment>
+				) : (
+					<strong>{props.event.startFormatted}</strong>
+				)}
 			</Typography>
 			<Typography variant='subtitle1' component='h1' className={classes.text} gutterBottom>
 				<strong>{props.event.name}</strong>
 			</Typography>
+			{mode && <pre>{JSON.stringify(props.event.layout, null, 2)}</pre>}
 			<Location location={props.event.location} />
 			<Typography variant='body1' component='p' className={classes.text}>
 				{props.event.description}

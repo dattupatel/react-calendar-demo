@@ -1,4 +1,5 @@
 import React, {Fragment, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -28,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 const EventDetail = (props) => {
 	const classes = useStyles();
-	const [editMode, setEditMode] = useState(false);
+	const mode = useSelector((state) => state.events.debugMode);
+
 	return (
 		<Card className={classes.popoverPaper}>
 			<CardContent className={classes.popoverTime}>
@@ -38,11 +40,8 @@ const EventDetail = (props) => {
 					</strong>
 				</Typography>
 			</CardContent>
-			{editMode && (
+			{mode && (
 				<CardContent>
-					<Button size='small' color='primary' onClick={() => setEditMode(false)}>
-						Close
-					</Button>
 					<pre>{JSON.stringify(props.event.layout, null, 2)}</pre>
 					<Grid container>
 						{['totalColumns', 'column', 'colspan'].map((c) => {
@@ -81,16 +80,7 @@ const EventDetail = (props) => {
 				</Fragment>
 			)}
 			<CardActions className={classes.cardActions}>
-				<Grid container direction='row' justify='space-between' alignItems='center'>
-					<Grid item>
-						<Button
-							size='small'
-							color='primary'
-							onClick={() => setEditMode((prev) => !prev)}
-							style={{display: 'none'}}>
-							Edit Layout
-						</Button>
-					</Grid>
+				<Grid container direction='row' justify='flex-end' alignItems='center'>
 					<Grid item>
 						<Button size='small' color='primary' onClick={props.handleClose}>
 							Close

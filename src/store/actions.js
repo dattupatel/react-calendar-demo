@@ -3,6 +3,8 @@ import Events from '../models/Events';
 import {doSequentialize} from '../helpers/events.sequentialize';
 
 export const SET_EVENTS = 'SET_EVENTS';
+export const TOGGLE_DEBUG_MODE = 'TOGGLE_DEBUG_MODE';
+
 export const loadEvents = () => {
 	return async (dispatch) => {
 		let demo;
@@ -23,5 +25,11 @@ export const loadEvents = () => {
 				events: sequentialized
 			}
 		});
+	};
+};
+
+export const toggleDebugMode = (mode) => {
+	return {
+		type: TOGGLE_DEBUG_MODE
 	};
 };

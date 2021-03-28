@@ -1,9 +1,10 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import { LAYOUT_DIMENSION } from '../constants/constants';
+import {makeStyles} from '@material-ui/core/styles';
+import {LAYOUT_DIMENSION} from '../constants/constants';
 import Calendar from './calendar/Calendar';
 import Explanation from './Explanation';
+import DebugMode from './DebugMode';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,8 +19,9 @@ const AppComponent = () => {
 	const classes = useStyles();
 
 	return (
-		<div style={{ minWidth: 850 }}>
+		<div style={{minWidth: 850}}>
 			<Explanation />
+			<DebugMode />
 			<Container className={classes.root}>
 				<Calendar />
 			</Container>
