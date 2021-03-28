@@ -20,12 +20,7 @@ export const doSequentialize = (events) => {
 		for (let j = 0; j < newEvents.length; j++) {
 			if (collidesWith(newEvents[i], newEvents[j])) {
 				newEvents[i].layout.cols.push(j);
-				if (i > j)
-					newEvents[i].layout.colsBefore.push({
-						i: j,
-						start: newEvents[j].start,
-						end: newEvents[j].end
-					});
+				if (i > j) newEvents[i].layout.colsBefore.push(j);
 			}
 		}
 	}
@@ -34,24 +29,27 @@ export const doSequentialize = (events) => {
 		if (i > 0 && event.layout.colsBefore.length > 0) {
 			const previousEvent = newEvents[i - 1];
 			if (previousEvent.layout.column > 0) {
-				for (let j = 0; j < previousEvent.layout.column; j++) {
-					const xyz = event.layout.colsBefore.map((c) => c.i);
-					const res = xyz.indexOf(i - (j + 2));
-					if (res === -1) {
+				for (let j = 0; j < previousEvent.layout.colsBefore.length; j++) {
+					const res = event.layout.colsBefore.indexOf(i - (j + 2));
+					if (res === -1 && !collidesWith(event, previousEvent)) {
 						event.layout.column = newEvents[i - (j + 2)].layout.column;
 					}
 				}
 				if (typeof event.layout.column === 'undefined') {
-					event.layout.column = previousEvent.layout.column + 1;
+					if (collidesWith(event, previousEvent)) {
+						event.layout.column = previousEvent.layout.column + 1;
+					}
+					else {
+						event.layout.column = previousEvent.layout.column;
+					}
 				}
 			}
 			else {
 				let column = 0;
 				for (let j = 0; j < event.layout.colsBefore.length; j++) {
-					if (
-						newEvents[event.layout.colsBefore.map((c) => c.i)[event.layout.colsBefore.length - 1 - j]]
-							.layout.column === column
-					) {
+					const comparingEvent = newEvents[event.layout.colsBefore[event.layout.colsBefore.length - 1 - j]];
+
+					if (comparingEvent.layout.column === column) {
 						column++;
 					}
 				}
