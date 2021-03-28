@@ -1,5 +1,5 @@
 import Jabber from 'jabber';
-import { getRandomNumber, getMinNumWeightedRandomNumber } from '../helpers/utils';
+import {getRandomNumber, getMinNumWeightedRandomNumber} from '../helpers/utils';
 import {
 	START_HOUR,
 	END_HOUR,
@@ -13,11 +13,11 @@ const generateRandomEvent = () => {
 	const id = Math.random().toString();
 	const name = jabber.createParagraph(getRandomNumber(1, 4));
 	const description = jabber.createParagraph(getRandomNumber(0, 100));
-	const { start, end } = generateMeetingEvents();
+	const {start, end} = generateMeetingEvents();
 	const attendees = new Array(getRandomNumber(0, 4)).fill(null).map(() => {
 		return jabber.createFullName(false);
 	});
-	const location = jabber.createParagraph(getRandomNumber(1, 4));
+	const location = jabber.createParagraph(getRandomNumber(0, 4));
 
 	return {
 		id,
@@ -35,9 +35,7 @@ const generateMeetingEvents = () => {
 	const lastTime = END_HOUR * 1000 * 60 * 60;
 	const randomStart = getRandomNumber(START_HOUR, END_HOUR);
 	const randomStartM = getRandomNumber(0, 60 / LEAST_MEETING_LENGTH_MINUTES);
-	const start =
-		randomStart * 60 * 60 * 1000 +
-		randomStartM * LEAST_MEETING_LENGTH_MINUTES * 60 * 1000;
+	const start = randomStart * 60 * 60 * 1000 + randomStartM * LEAST_MEETING_LENGTH_MINUTES * 60 * 1000;
 
 	const randomStartMend = getRandomNumber(1, LONGEST_MEETING_STEP);
 	const end =

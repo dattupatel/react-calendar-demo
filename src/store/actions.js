@@ -1,6 +1,6 @@
-import { generateMockEvents } from './mockevents';
+import {generateMockEvents} from './mockevents';
 import Events from '../models/Events';
-import { doSequentialize } from '../helpers/events.sequentialize';
+import {doSequentialize} from '../helpers/events.sequentialize';
 
 export const SET_EVENTS = 'SET_EVENTS';
 export const loadEvents = () => {
@@ -9,16 +9,7 @@ export const loadEvents = () => {
 		//demo = 'demo1';
 		const result = await generateMockEvents(demo);
 		const events = result.map(
-			(e) =>
-				new Events(
-					e.id,
-					e.name,
-					e.description,
-					e.start,
-					e.end,
-					e.attendees,
-					e.location
-				)
+			(e) => new Events(e.id, e.name, e.description, e.start, e.end, e.attendees, e.location)
 		);
 		if (!demo) {
 			console.log(events);

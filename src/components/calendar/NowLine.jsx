@@ -1,16 +1,12 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import moment from 'moment';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles, fade } from '@material-ui/core/styles';
+import {makeStyles, fade} from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import red from '@material-ui/core/colors/red';
 
-import {
-	LEAST_MEETING_LENGTH_MINUTES,
-	START_HOUR,
-	END_HOUR
-} from '../../constants/constants';
+import {LEAST_MEETING_LENGTH_MINUTES, START_HOUR, END_HOUR} from '../../constants/constants';
 
 const DELAY = 60;
 
@@ -20,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 		zIndex: 10,
 		width: '100%',
 		cursor: 'pointer',
-		transition: theme.transitions.create([ 'top', 'background' ])
+		transition: theme.transitions.create(['top', 'background'])
 	},
 	nowLineContainerShow: {
 		visibility: 'visible'
@@ -31,11 +27,8 @@ const useStyles = makeStyles((theme) => ({
 	nowLine: {
 		marginLeft: theme.spacing(1),
 		width: `calc(100% - ${theme.spacing(1)}px )`,
-		background: `linear-gradient(to right top, ${fade(red[900], 0.6)}, ${fade(
-			purple[700],
-			0.6
-		)})`,
-		transition: theme.transitions.create([ 'top', 'background' ]),
+		background: `linear-gradient(to right top, ${fade(red[900], 0.6)}, ${fade(purple[700], 0.6)})`,
+		transition: theme.transitions.create(['top', 'background']),
 		'&:hover': {
 			background: `linear-gradient(to right top, ${purple[700]}, ${red[900]})`,
 			'&:after': {
@@ -60,12 +53,10 @@ const useStyles = makeStyles((theme) => ({
 //@todo Start when the page was loaded before START_HOUR
 //@todo End when the page was loaded before END_HOUR
 //@todo Start the timer with the second (or ms) precision and then set interval
-const NowLine = ({ rowHeight, ...props }) => {
+const NowLine = ({rowHeight, ...props}) => {
 	const getNowInMs = useCallback(() => {
 		// return (START_HOUR + 1) * 60 * 60 * 1000;
-		return moment
-			.duration(moment().seconds(0).milliseconds(0).format('HH:mm'))
-			.asMilliseconds();
+		return moment.duration(moment().seconds(0).milliseconds(0).format('HH:mm')).asMilliseconds();
 	}, []);
 
 	const timer = useRef(null);
@@ -74,32 +65,28 @@ const NowLine = ({ rowHeight, ...props }) => {
 	const nowInMs = getNowInMs();
 
 	const classes = useStyles();
-	const [ timerHasStarted, setTimerHasStarted ] = useState(false);
-	const [ startTimer, setStartTimer ] = useState(false);
-	const [ top, setTop ] = useState(0);
+	const [timerHasStarted, setTimerHasStarted] = useState(false);
+	const [startTimer, setStartTimer] = useState(false);
+	const [top, setTop] = useState(0);
 
 	useEffect(
 		() => {
-			if (
-				top === 0 &&
-				nowInMs >= dayStartsAt &&
-				nowInMs < dayEndsAt &&
-				rowHeight > 0
-			) {
+			if (top === 0 && nowInMs >= dayStartsAt && nowInMs < dayEndsAt && rowHeight > 0) {
 				const now = nowInMs - dayStartsAt;
 				const minute = (rowHeight + 1) / LEAST_MEETING_LENGTH_MINUTES;
 				const top = minute * moment.duration(now).asMinutes();
 				setTop(top);
 			}
 		},
-		[ top, rowHeight, nowInMs, dayStartsAt, dayEndsAt ]
+		[top, rowHeight, nowInMs, dayStartsAt, dayEndsAt]
 	);
 
 	useEffect(
 		() => {
 			if (!timerHasStarted && nowInMs > dayStartsAt && nowInMs < dayEndsAt) {
 				setStartTimer(true);
-			} else if (timerHasStarted && nowInMs > dayEndsAt) {
+			}
+			else if (timerHasStarted && nowInMs > dayEndsAt) {
 				setTimerHasStarted(false);
 			}
 
@@ -110,7 +97,7 @@ const NowLine = ({ rowHeight, ...props }) => {
 				setTimerHasStarted(true);
 			}
 		},
-		[ startTimer, timerHasStarted, top, rowHeight, dayStartsAt, dayEndsAt, nowInMs ]
+		[startTimer, timerHasStarted, top, rowHeight, dayStartsAt, dayEndsAt, nowInMs]
 	);
 	useEffect(() => {
 		return () => {
@@ -121,20 +108,17 @@ const NowLine = ({ rowHeight, ...props }) => {
 	}, []);
 
 	const getToolTipTitle = () => {
-		return `Now ${moment().format('HH:mm A')}`;
+		return `Now ${moment().format('h:mm A')}`;
 	};
 
 	return (
-		<Tooltip title={getToolTipTitle()} placement="left">
+		<Tooltip title={getToolTipTitle()} placement='left'>
 			<div
 				className={[
 					classes.nowLineContainer,
-					timerHasStarted
-						? classes.nowLineContainerShow
-						: classes.nowLineContainerHide
+					timerHasStarted ? classes.nowLineContainerShow : classes.nowLineContainerHide
 				].join(' ')}
-				style={{ top: top }}
-			>
+				style={{top: top}}>
 				<Divider className={classes.nowLine} />
 			</div>
 		</Tooltip>

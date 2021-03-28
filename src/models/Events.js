@@ -6,7 +6,7 @@ class Event {
 		sequence: 0,
 		cols: [],
 		colsBefore: [],
-		column: 0,
+		column: undefined,
 		totalColumns: 1,
 		colspan: 1,
 		width: '100%',
@@ -24,6 +24,9 @@ class Event {
 		this.attendees = attendees || [];
 		this.location = location;
 	}
+	set setLayout(val) {
+		this.layout = val;
+	}
 
 	get length() {
 		return this.end - this.start;
@@ -39,6 +42,20 @@ class Event {
 	}
 	get endFormatted() {
 		return moment.utc(this.end).format('h:mm A');
+	}
+
+	static cloneEvent(event) {
+		const newEvent = new Event(
+			event.id,
+			event.name,
+			event.description,
+			event.start,
+			event.end,
+			event.attendees,
+			event.location
+		);
+		newEvent.setLayout = event.layout;
+		return newEvent;
 	}
 }
 
