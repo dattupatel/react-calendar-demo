@@ -2,7 +2,7 @@ import moment from 'moment';
 
 //@todo Add timezone management for the Events
 class Event {
-	layout = {
+	_layout = {
 		sequence: 0,
 		cols: [],
 		colsBefore: [],
@@ -24,8 +24,12 @@ class Event {
 		this.attendees = attendees || [];
 		this.location = location;
 	}
-	set setLayout(val) {
-		this.layout = val;
+
+	set layout(val) {
+		this._layout = val;
+	}
+	get layout() {
+		return this._layout;
 	}
 
 	get length() {
@@ -54,7 +58,7 @@ class Event {
 			event.attendees,
 			event.location
 		);
-		newEvent.setLayout = event.layout;
+		newEvent.layout = event.layout;
 		return newEvent;
 	}
 }
