@@ -1,12 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState, useEffect, useRef} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import {
-	START_HOUR,
-	END_HOUR,
-	LEAST_MEETING_LENGTH_MINUTES,
-	LAYOUT_DIMENSION
-} from '../../constants/constants';
+import {START_HOUR, END_HOUR, LEAST_MEETING_LENGTH_MINUTES, LAYOUT_DIMENSION} from '../../constants/constants';
 import CalendarEvents from './CalendarEvents';
 import Times from '../../models/Times';
 import NowLine from './NowLine';
@@ -17,8 +12,7 @@ const generateLayoutArray = () => {
 	const length = hours * (60 / LEAST_MEETING_LENGTH_MINUTES);
 	return new Array(length).fill({}).map((val, i) => {
 		const h = Math.floor(i / (60 / LEAST_MEETING_LENGTH_MINUTES)) + START_HOUR;
-		const m =
-			(i % (60 / LEAST_MEETING_LENGTH_MINUTES)) * LEAST_MEETING_LENGTH_MINUTES;
+		const m = (i % (60 / LEAST_MEETING_LENGTH_MINUTES)) * LEAST_MEETING_LENGTH_MINUTES;
 		return new Times(h, m, i);
 	});
 };
@@ -38,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CalendarOutline = () => {
-	const [ rowHeight, setRowHeight ] = useState(0);
+	const [rowHeight, setRowHeight] = useState(0);
 	const ref = useRef(null);
 
 	useEffect(
@@ -47,7 +41,7 @@ const CalendarOutline = () => {
 				setRowHeight(ref.current.clientHeight);
 			}
 		},
-		[ ref ]
+		[ref]
 	);
 
 	const classes = useStyles({
@@ -58,9 +52,7 @@ const CalendarOutline = () => {
 		<section className={classes.root}>
 			<NowLine rowHeight={rowHeight} />
 			<Box>
-				{layoutArray.map((timeData, i) => (
-					<Outline key={i} timeData={timeData} />
-				))}
+				{layoutArray.map((timeData, i) => <Outline key={i} timeData={timeData} />)}
 				<Outline
 					ref={ref}
 					isEnd={true}
@@ -69,7 +61,7 @@ const CalendarOutline = () => {
 						label: (
 							<span>
 								{END_HOUR > 12 ? END_HOUR - 12 : END_HOUR}:00{' '}
-								{END_HOUR > 12 && END_HOUR !== 24 ? 'PM' : 'AM'}
+								{END_HOUR >= 12 && END_HOUR !== 24 ? 'PM' : 'AM'}
 							</span>
 						)
 					}}
