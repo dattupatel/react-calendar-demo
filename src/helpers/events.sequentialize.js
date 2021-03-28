@@ -25,8 +25,7 @@ export const doSequentialize = (events) => {
 		}
 	}
 
-	for (let i = 0; i < newEvents.length; i++) {
-		let el = newEvents[i];
+	newEvents.forEach((el, i) => {
 		if (i > 0 && el.layout.colsBefore.length > 0) {
 			if (newEvents[i - 1].layout.column > 0) {
 				for (let j = 0; j < newEvents[i - 1].layout.column; j++) {
@@ -34,26 +33,21 @@ export const doSequentialize = (events) => {
 						el.layout.column = newEvents[i - (j + 2)].layout.column;
 					}
 				}
-				if (typeof el.layout.column === 'undefined')
-					el.column = newEvents[i - 1].column + 1;
+				if (typeof el.layout.column === 'undefined') el.column = newEvents[i - 1].column + 1;
 			} else {
 				let column = 0;
 				for (let j = 0; j < el.layout.colsBefore.length; j++) {
-					if (
-						newEvents[
-							el.layout.colsBefore[el.layout.colsBefore.length - 1 - j]
-						].layout.column === column
-					)
+					if (newEvents[el.layout.colsBefore[el.layout.colsBefore.length - 1 - j]].layout.column === column)
 						column++;
 				}
 				el.layout.column = column;
 			}
 		}
-	}
+	});
 
 	//@todo The values for columns, totalColumns and colspan are not being set properly.
-	for (let i = 0; i < newEvents.length; i++) {
-		if (newEvents[i].layout.cols.length > 1) {
+	newEvents.forEach((el, i) => {
+		if (el.layout.cols.length > 1) {
 			let conflictGroup = [];
 			let conflictingColumns = [];
 
@@ -61,17 +55,15 @@ export const doSequentialize = (events) => {
 				for (let k = 0; k < a.layout.cols.length; k++) {
 					if (conflictGroup.indexOf(a.layout.cols[k]) === -1) {
 						conflictGroup.push(a.layout.cols[k]);
-						conflictingColumns.push(
-							newEvents[a.layout.cols[k]].layout.column
-						);
+						conflictingColumns.push(newEvents[a.layout.cols[k]].layout.column);
 						addConflictsToGroup(newEvents[a.layout.cols[k]]);
 					}
 				}
 			};
-			addConflictsToGroup(newEvents[i]);
-			newEvents[i].layout.totalColumns += Math.max.apply(null, conflictingColumns);
+			addConflictsToGroup(el);
+			el.layout.totalColumns += Math.max.apply(null, conflictingColumns);
 		}
-	}
+	});
 
 	newEvents.forEach((e, i) => (e.layout.sequence = i));
 
