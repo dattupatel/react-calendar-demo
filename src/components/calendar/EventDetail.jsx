@@ -53,7 +53,7 @@ const EventDetail = (props) => {
 									</Grid>
 									<Grid item xs={6}>
 										<input
-											type='text'
+											type='number'
 											value={props.event.layout[c]}
 											onChange={props.onChange.bind(this, c)}
 										/>
