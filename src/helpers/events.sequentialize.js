@@ -1,6 +1,6 @@
-//Using https://jsfiddle.net/ilpo/ftbjan06/5/ as a source
+//Used https://jsfiddle.net/ilpo/ftbjan06/5/ for reference logic
 
-const collidesWith = (a, b) => {
+const checkIfCollidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
 
@@ -11,6 +11,7 @@ const doSortEvents = (a, b) => {
 	return a.start > b.start ? 1 : -1;
 };
 
+//@todo The values for column, totalColumns and colspan are not being set properly.
 export const doSequentialize = (events) => {
 	const newEvents = [...events];
 
@@ -18,7 +19,7 @@ export const doSequentialize = (events) => {
 
 	for (let i = 0; i < newEvents.length; i++) {
 		for (let j = 0; j < newEvents.length; j++) {
-			if (collidesWith(newEvents[i], newEvents[j])) {
+			if (checkIfCollidesWith(newEvents[i], newEvents[j])) {
 				newEvents[i].layout.cols.push(j);
 				if (i > j) newEvents[i].layout.colsBefore.push(j);
 			}
@@ -31,12 +32,12 @@ export const doSequentialize = (events) => {
 			if (previousEvent.layout.column > 0) {
 				for (let j = 0; j < previousEvent.layout.colsBefore.length; j++) {
 					const res = event.layout.colsBefore.indexOf(i - (j + 2));
-					if (res === -1 && !collidesWith(event, previousEvent)) {
+					if (res === -1 && !checkIfCollidesWith(event, previousEvent)) {
 						event.layout.column = newEvents[i - (j + 2)].layout.column;
 					}
 				}
 				if (typeof event.layout.column === 'undefined') {
-					if (collidesWith(event, previousEvent)) {
+					if (checkIfCollidesWith(event, previousEvent)) {
 						event.layout.column = previousEvent.layout.column + 1;
 					}
 					else {
@@ -61,7 +62,6 @@ export const doSequentialize = (events) => {
 		}
 	});
 
-	//@todo The values for column, totalColumns and colspan are not being set properly.
 	newEvents.forEach((event, i) => {
 		if (event.layout.cols.length > 1) {
 			let conflictGroup = [];
