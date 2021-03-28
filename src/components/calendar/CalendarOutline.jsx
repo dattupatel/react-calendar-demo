@@ -53,19 +53,7 @@ const CalendarOutline = () => {
 			<NowLine rowHeight={rowHeight} />
 			<Box>
 				{layoutArray.map((timeData, i) => <Outline key={i} timeData={timeData} />)}
-				<Outline
-					ref={ref}
-					isEnd={true}
-					timeData={{
-						isStartOfHour: true,
-						label: (
-							<span>
-								{END_HOUR > 12 ? END_HOUR - 12 : END_HOUR}:00{' '}
-								{END_HOUR >= 12 && END_HOUR !== 24 ? 'PM' : 'AM'}
-							</span>
-						)
-					}}
-				/>
+				<Outline ref={ref} isEnd={true} timeData={new Times(END_HOUR, 0, 0)} />
 			</Box>
 			<div className={classes.eventsContainer}>
 				<CalendarEvents rowHeight={rowHeight} />
