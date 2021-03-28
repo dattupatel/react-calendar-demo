@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-//@todo Start when the page was loaded before START_HOUR
-//@todo End when the page was loaded before END_HOUR
-//@todo Start the timer with the second (or ms) precision and then set interval
+//@todo If the page was loaded before START_HOUR, then start the timer when the current time reaches START_HOUR
+//@todo If the page was loaded before END_HOUR, then end the timer when the current time passess END_HOUR
+//@todo The timer should start with the seconds precision and then set interval for each minute
 const NowLine = ({rowHeight, ...props}) => {
 	const getNowInMs = useCallback(() => {
 		// return (START_HOUR + 1) * 60 * 60 * 1000;

@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-//@todo Add timezone management
+//@todo Add timezone management for the Events
 class Event {
 	layout = {
 		sequence: 0,

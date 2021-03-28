@@ -30,7 +30,7 @@ const generateRandomEvent = () => {
 	};
 };
 
-//@todo: Refactor the code to generate a random event.
+//@todo: Refactor the code that generates random meeting events
 const generateMeetingEvents = () => {
 	const lastTime = END_HOUR * 1000 * 60 * 60;
 	const randomStart = getRandomNumber(START_HOUR, END_HOUR);

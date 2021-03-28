@@ -8,7 +8,7 @@ import CalendarOutline from './CalendarOutline';
 import IconButton from '@material-ui/core/IconButton';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
-//@todo Auto refresh to next day when day changes
+//@todo Auto refresh the Date and Events on date change.
 const Calendar = () => {
 	const dispatch = useDispatch();
 	const onLoad = useCallback(

@@ -11,7 +11,7 @@ const doSortEvents = (a, b) => {
 	return a.start > b.start ? 1 : -1;
 };
 
-//@todo The values for column, totalColumns and colspan are not being set properly.
+//@todo The layout values for column, totalColumns and colspan need to be set appropriately.
 export const doSequentialize = (events) => {
 	const newEvents = [...events];
 
