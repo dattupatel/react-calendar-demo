@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Explanation = () => {
 	const classes = useStyles();
-	const [ open, setOpen ] = useState(false);
+	const [open, setOpen] = useState(false);
 	const handleClick = (event) => {
 		setOpen(true);
 	};
@@ -44,41 +44,48 @@ const Explanation = () => {
 		'Various edge cases of overlapping events.'
 	];
 
+	const extraNotes = [
+		'Shows a NowLine when viewing in between 9AM to 9PM',
+		'Issues are tracked on <a target="_blank" href="https://github.com/dattupatel/react-calendar-demo/">Github</a>'
+	];
+
 	return (
 		<div className={classes.root}>
-			<Tooltip title="Explanation" placement="right">
-				<IconButton onClick={handleClick} size="small">
-					{open ? (
-						<HelpOutlineIcon fontSize="small" />
-					) : (
-						<HelpIcon fontSize="small" />
-					)}
+			<Tooltip title='Explanation' placement='right'>
+				<IconButton onClick={handleClick} size='small'>
+					{open ? <HelpOutlineIcon fontSize='small' /> : <HelpIcon fontSize='small' />}
 				</IconButton>
 			</Tooltip>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Original demo constraints</DialogTitle>
 				<DialogContent>
-					<DialogContentText component="div">
+					<DialogContentText component='div'>
 						<List dense={true}>
 							{notes.map((note, i) => (
 								<ListItem key={i}>
-									<ListItemIcon style={{ minWidth: 0 }}>
+									<ListItemIcon style={{minWidth: 0}}>
 										<ArrowRightIcon />
 									</ListItemIcon>
-									<ListItemText
-										primary={
-											<span
-												dangerouslySetInnerHTML={{ __html: note }}
-											/>
-										}
-									/>
+									<ListItemText primary={<span dangerouslySetInnerHTML={{__html: note}} />} />
+								</ListItem>
+							))}
+						</List>
+						<h4>Extras</h4>
+
+						<List dense={true}>
+							{extraNotes.map((note, i) => (
+								<ListItem key={i}>
+									<ListItemIcon style={{minWidth: 0}}>
+										<ArrowRightIcon />
+									</ListItemIcon>
+									<ListItemText primary={<span dangerouslySetInnerHTML={{__html: note}} />} />
 								</ListItem>
 							))}
 						</List>
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color="primary">
+					<Button onClick={handleClose} color='primary'>
 						Close
 					</Button>
 				</DialogActions>
