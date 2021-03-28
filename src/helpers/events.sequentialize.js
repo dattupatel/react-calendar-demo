@@ -1,5 +1,3 @@
-//Used https://jsfiddle.net/ilpo/ftbjan06/5/ for reference logic
-
 const checkIfCollidesWith = (a, b) => {
 	return a.end > b.start && a.start < b.end;
 };
