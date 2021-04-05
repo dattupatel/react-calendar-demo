@@ -1,5 +1,5 @@
 # React Calendar Demo
-<a href="https://dattu-react-calendar-demo.web.app/" target="_blank">Live Example</a>
+<a href="https://dattu-demo-apps-react-calendar.firebaseapp.com/" target="_blank">Live Example</a>
 
 
 ## Getting Started with Create React App

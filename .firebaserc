@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "dattu-demo-apps"
+  },
+  "targets": {
+    "dattu-demo-apps": {
+      "hosting": {
+        "calendar": [
+          "dattu-demo-apps-react-calendar"
+        ]
+      }
+    }
+  }
+}
